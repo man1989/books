@@ -5,7 +5,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 
 let __filename = fileURLToPath(import.meta.url);
 let __dirname = dirname(__filename);
-console.log(path.resolve(__dirname, "src"));
+console.log(path.join(__dirname, "src"));
 export default {
     entry: "./src/index.js",
     output: {
@@ -30,6 +30,10 @@ export default {
                     }
                 },
             },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },            
         ],
     },
     plugins: [
@@ -39,6 +43,10 @@ export default {
     ],    
     devServer: {
         compress: true,
+        static: {
+            directory: path.join(__dirname, 'dist'),
+        },        
         port: 3000,
+        historyApiFallback: true
     }
 };

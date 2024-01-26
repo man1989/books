@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack .",
+    "build": "webpack",
     "start": "webpack serve --mode development"
   },
   "author": "",
@@ -15,7 +15,9 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.3"
+    "react-router-dom": "^6.21.3",
+    "reactstrap": "^9.2.2",
+    "uikit": "^3.17.11"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
