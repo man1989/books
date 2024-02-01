@@ -42,7 +42,8 @@ export default {
         })
     ],    
     devServer: {
-        compress: true,
+        // compress: true,
+        // hot: true,
         static: {
             directory: path.join(__dirname, 'dist'),
         },        

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import UIkit from 'uikit';
-import ProgressBar from './ProgressBar.js';
+// import ProgressBar from './ProgressBar.js';
 
 const Modal = ({ title, children, show, onClose, progressRef }) => {
   useEffect(() => {
@@ -25,7 +25,7 @@ const Modal = ({ title, children, show, onClose, progressRef }) => {
             {title}
           </h3>
         </div>
-        <ProgressBar id="js-progressbar" className="uk-progress" value="0" max="100" ref={progressRef}></ProgressBar>
+        {progressRef && <progress id="js-progressbar" className="uk-progress" value="0" max="100" ref={progressRef}></progress>}
         <div className="uk-modal-body">
           {children}
         </div>
