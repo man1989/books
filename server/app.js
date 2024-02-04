@@ -1,5 +1,11 @@
 import express from "express";
+import db from "./services/db.js";
+
 
 const app = express();
 
-app.listen(3000)
+
+(async () => {
+    await db.connect();
+    app.listen(3033)
+})();
