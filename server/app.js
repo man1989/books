@@ -1,11 +1,9 @@
 import express from "express";
-import db from "./services/db.js";
+import config from "./config/index.js";
+import db from "./db/index.js";
 
 
 const app = express();
-
-
-(async () => {
-    await db.connect();
-    app.listen(3033)
-})();
+db.connect();
+db.migrate();
+app.listen(config.port);

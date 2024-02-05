@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 import subprocess
 import sys
@@ -76,7 +76,6 @@ def destroy():
     
 def init():
     options = sys.argv[1:]
-    print(options)
     if "--destroy" in options:
         destroy()
     else:

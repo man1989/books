@@ -1,30 +1,38 @@
 import vm from "node:vm";
-import {readFileSync, statSync } from "node:fs";
+import {readFileSync, statSync} from "node:fs";
 import path from "node:path";
-
-const __dirname = import.meta.dirname;
-const __filename = import.meta.filename;
+import { fileURLToPath } from "node:url";
 
 const environment = process.env.ENVIRONMENT || "dev"
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-function config(){
-    let configScript = "{}";
+
+
+function getConfig(){
     console.log(path.resolve(__dirname, "dev.config.js"));
+    let configScript;
     if (environment.toLocaleLowerCase().indexOf("dev")>=0) {
-        const devConfigPath = path.resolve(__dirname, "dev.config.js")
-        console.log(statSync(devConfigPath, {throwIfNoEntry: false}))
+        const devConfigPath = path.resolve(__dirname, "dev.config.js");
         configScript = readFileSync(devConfigPath);
     } else {
         const prodConfigPath = path.resolve(__dirname, "prod.config.js")
         configScript = readFileSync(prodConfigPath);
     }
-    vm.Module
-    let script = new vm.SourceTextModule('import config from "./dev.config.js');
-    let context = {};
-    script.runInContext(context)
-    console.log(context);
+    const config = new Function(`return ${configScript.toString()}`)()();
+    config.__dirname = __dirname;
+    config.__dirname = __filename;
+    Object.defineProperties(config, {
+        "baseDir": {
+            enumerable: false,
+            get(){
+                return path.resolve(__dirname, "../")
+            },
+        }
+    });
+    return config;
 }
 
 
-export default config();
+export default getConfig();
 
